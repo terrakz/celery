@@ -5,4 +5,5 @@ app = Celery('tasks', broker='pyamqp://guest@localhost//')
 @app.task
 def add(x, y):
   return x + y
-def mytask()
+def mytask(word):
+  return word
