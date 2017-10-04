@@ -3,8 +3,9 @@ import json
 
 #count = 0
 count = [0,0,0,0,0,0,0]
-pronouns = ["han", "hon", "den", "det", "denne", "denna", "hen"]
-#linenr = 1
+data = {'han':0,'hon':0,'den':0,'det':0,'denna':0,'denne':0,'hen':0}
+json_data = json.dumps(data)
+pronouns = {'han', 'hon', 'den', 'det', 'denna', 'denne', 'hen'}
 path = "/mnt/volume/data/lab3/"
 current = 1
 
@@ -15,13 +16,24 @@ for dirpath, dirnames, files in os.walk(os.path.abspath(os.curdir)+"/folder"):
     #f = open(path+name, 'r')
 
     for line in f:
-      if not line.isspace() or not "\n":
+      if not line.isspace():
         j = json.loads(line)
-        print str(current) + " : " + j['text']
-        text = j['text'].lower()
-        for index,pronoun in enumerate(pronouns):
-          count[index] += text.count(pronoun+" ") + text.count(" "+pronoun) + text.count(" "+pronoun+" ")
-      current += 1
+        if j['retweeted'] == False:
+          #print str(current) + " : " + j['text']
+          text = j['text'].lower()
+          
+          #for i in json_data:
+            #print i[0]
+          #for index,pronoun in enumerate(pronouns):
+            #count[index] += text.count(pronoun+" ") + text.count(" "+pronoun) + text.count(" "+pronoun+" ")
+            #data[pronoun] += text.count(pronoun+" ") + text.count(" "+pronoun) + text.count(" "+pronoun+" ")
+            #print index, pronoun
+      #current += 1
+      #print count
+    dict = json.loads(json_data)
+    print json_data
+    for pronoun in pronouns:
+      print dict.get(pronoun)
 
       #find beginning of text
       #start = line.find("\"text\"") + 8
