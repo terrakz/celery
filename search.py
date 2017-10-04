@@ -2,13 +2,13 @@ import os
 
 count = 0
 #linenr = 1
-path = "/mnt/volume/data/lab3/"
+#path = "/mnt/volume/data/lab3/"
 
-#for dirpath, dirnames, files in os.walk(os.path.abspath(os.curdir)+"/folder"):
-for dirpath, dirnames, files in os.walk(path):
+for dirpath, dirnames, files in os.walk(os.path.abspath(os.curdir)+"/folder"):
+#for dirpath, dirnames, files in os.walk(path):
   for name in files:
-    #f = open("folder/"+name, 'r')
-    f = open(path+name, 'r')
+    f = open("folder/"+name, 'r')
+    #f = open(path+name, 'r')
 
     for line in f:
       #find beginning of text
@@ -19,7 +19,8 @@ for dirpath, dirnames, files in os.walk(path):
 
       #count pronouns
       #print str(linenr) + ": " + str(line[start:end].lower().count("han"))
-      count += line[start:end].lower().count("han")
+      if "RT" not in line[start:start+2]:
+        count += line[start:end].lower().count("han")
       #linenr += 1
 
 print count
