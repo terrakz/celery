@@ -1,6 +1,7 @@
 import os
 
 count = 0
+linenr = 1
 
 for dirpath, dirnames, files in os.walk(os.path.abspath(os.curdir)+"/folder"):
   for name in files:
@@ -14,7 +15,8 @@ for dirpath, dirnames, files in os.walk(os.path.abspath(os.curdir)+"/folder"):
       end = line.find("\",", start)
 
       #count pronouns
-      print line[start:end].count("han")
-      count += line[start:end].count("han")
+      print str(linenr) + ": " + str(line[start:end].lower().count("han"))
+      count += line[start:end].lower().count("han")
+      linenr += 1
 
 print count
