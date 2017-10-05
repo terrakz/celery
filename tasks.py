@@ -2,16 +2,17 @@ from celery import Celery
 import os
 import json
 
-app = Celery('tasks', broker='pyamqp://guest@localhost//')
+app = Celery('tasks', backend='rpc://', broker='pyamqp://guest@localhost//')
 
 
-data = {'han':0,'hon':0,'den':0,'det':0,'denna':0,'denne':0,'hen':0}
+#data = {'han':0,'hon':0,'den':0,'det':0,'denna':0,'denne':0,'hen':0}
 #json_data = json.dumps(data)
 pronouns = {'han', 'hon', 'den', 'det', 'denna', 'denne', 'hen'}
 path = "/mnt/volume/data/"
 
 @app.task
 def count():
+  data = {'han':0,'hon':0,'den':0,'det':0,'denna':0,'denne':0,'hen':0}
   for dirpath, dirnames, files in os.walk(os.path.abspath(os.curdir)+"/folder2"):
   #for dirpath, dirnames, files in os.walk(path):
     for name in files:
