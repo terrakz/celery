@@ -6,7 +6,7 @@ app = Celery('tasks', backend='rpc://', broker='pyamqp://guest@localhost//')
 
 
 pronouns = {'han', 'hon', 'den', 'det', 'denna', 'denne', 'hen'}
-path = "/mnt/volume/data/"
+path = "/mnt/volume/data/test/"
 
 @app.task
 def count():
@@ -16,12 +16,13 @@ def count():
       f = open(path+name, 'r')
 
       for line in f:
-        if not line.isspace() and len(line) > 1024: #last line in every file is 1024 in length but is not a json string
+        if not line.isspace(): #and len(line) > 1024: #last line in every file is 1024 in length but is not a json string
           j = json.loads(line)
-          if j['retweeted'] == False: #doesnt seem to matter
+          if not 'retweeted_status' in j:
             text = j['text'].lower().split(" ")
             for word in text:
-              word = word.strip(":")
+              #word = word.strip(":")
+              word = ''.join([i for i in word if i.isalpha()])
               if word in pronouns:
                 data[word] += 1
   return data
